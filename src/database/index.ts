@@ -1,12 +1,14 @@
-import Sequelize from "sequelize";
+import { Sequelize } from "sequelize";
 
-import configDatabase from "../config/database";
+const configDatabase = require("../config/database");
 
 import User from "../app/models/User";
 
 const models = [User];
 
 class Database {
+  connection!: Sequelize;
+
   constructor() {
     this.init();
   }
