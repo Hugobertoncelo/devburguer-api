@@ -1,7 +1,6 @@
 {
   "name": "devburguer-api",
   "version": "1.0.0",
-  "type": "module",
   "description": "DevBurguer API",
   "main": "src/server.js",
   "scripts": {
@@ -15,13 +14,16 @@
   },
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.21.2",
     "pg": "^8.13.3",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.5",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.5",
     "eslint": "^9.21.0",

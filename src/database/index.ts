@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-const configDatabase = require("../config/database");
+import configDatabase from "../config/database";
 
 import User from "../app/models/User";
 
