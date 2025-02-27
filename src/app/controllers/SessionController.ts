@@ -1,17 +1,19 @@
 import * as Yup from "yup";
-import User from "../models/User"; // Adjust the path as necessary
+import User from "../models/User";
+import jwt from "jsonwebtoken";
+import authConfig from "../../config/auth";
 
 class SessionController {
-  async store(req, res) {
+  async store(request, response) {
     const schema = Yup.object().shape({
       email: Yup.string().email().required(),
       password: Yup.string().min(6).required(),
     });
 
-    const isValid = await schema.isValid(req.body);
+    const isValid = await schema.isValid(request.body);
 
     const emailOrPasswordIncorrect = () => {
-      return res
+      return response
         .status(401)
         .json({ error: "Make sure your email or password are correct" });
     };
@@ -20,7 +22,7 @@ class SessionController {
       return emailOrPasswordIncorrect();
     }
 
-    const { email, password } = req.body;
+    const { email, password } = request.body;
 
     const user = await User.findOne({
       where: {
@@ -38,9 +40,15 @@ class SessionController {
       return emailOrPasswordIncorrect();
     }
 
-    return res
-      .status(201)
-      .json({ id: user.id, name: user.name, email, admin: user.admin });
+    return response.status(201).json({
+      id: user.id,
+      name: user.name,
+      email,
+      admin: user.admin,
+      token: jwt.sign({ id: user.id }, authConfig.secret, {
+        expiresIn: authConfig.expiresIn,
+      }),
+    });
   }
 }
 

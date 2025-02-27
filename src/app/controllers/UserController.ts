@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import User from "../models/User";
 
 class UserController {
-  async store(req, res) {
+  async store(request, response) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string().email().required(),
@@ -13,15 +13,15 @@ class UserController {
     });
 
     try {
-      schema.validateSync(req.body, { abortEarly: false });
+      schema.validateSync(request.body, { abortEarly: false });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        return res.status(400).json({ error: err.errors });
+        return response.status(400).json({ error: err.errors });
       }
-      return res.status(500).json({ error: "Internal server error" });
+      return response.status(500).json({ error: "Internal server error" });
     }
 
-    const { name, email, password, admin } = req.body;
+    const { name, email, password, admin } = request.body;
 
     const userExists = await User.findOne({
       where: {
@@ -30,7 +30,7 @@ class UserController {
     });
 
     if (userExists) {
-      return res.status(400).json({ error: "User already exists" });
+      return response.status(400).json({ error: "User already exists" });
     }
 
     console.log(userExists);
@@ -42,7 +42,7 @@ class UserController {
       password,
       admin,
     });
-    return res.status(201).json({
+    return response.status(201).json({
       id: user.id,
       name,
       email,
