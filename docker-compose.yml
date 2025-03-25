@@ -1,0 +1,47 @@
+services:
+  devburguer1-postgres:
+    image: "postgres:latest"
+    container_name: "devburguer1-postgres"
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postegres"
+      POSTGRES_DB: "devburguer"
+    ports:
+      - "5432:5432"
+    volumes:
+      - devburguer1-postgres-data:/data
+    networks:
+      - devburguer1-network
+
+  devburguer1-server:
+    build: .
+    volumes:
+      - /home/node/api/node_modules
+      - .:/home/node/api
+    depends_on:
+      - devburguer1-postgres
+    container_name: "devburguer1-server"
+    ports:
+      - "3000:3000"
+    networks:
+      - devburguer1-network
+  # nginx:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./nginx
+  #   restart: always
+  #   depends_on:
+  #     - gostack-server
+  #   container_name: "gostack-nginx"
+  #   ports:
+  #     - "80:80"
+  #   networks:
+  #     - gostack-network
+
+volumes:
+  devburguer1-postgres-data:
+
+networks:
+  devburguer1-network:
+    driver: bridge

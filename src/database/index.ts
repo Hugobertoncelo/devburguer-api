@@ -14,7 +14,7 @@ class Database {
 
   constructor() {
     this.init();
-    this.mongo();
+    // this.mongo();
   }
 
   init() {
@@ -26,11 +26,11 @@ class Database {
       );
   }
 
-  mongo() {
-    this.mongoConnection = mongoose.connect(
-      "mongodb://localhost:27017/devburguer"
-    );
-  }
+  // mongo() {
+  //   this.mongoConnection = mongoose.connect(
+  //     "mongodb://localhost:27017/devburguer"
+  //   );
+  // }
 }
 
 export default new Database();
