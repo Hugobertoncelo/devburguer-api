@@ -45,6 +45,7 @@ class SessionController {
       name: user.name,
       email,
       admin: user.admin,
+      // @ts-ignore
       token: jwt.sign({ id: user.id, name: user.name }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),

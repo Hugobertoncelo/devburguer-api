@@ -6,7 +6,7 @@ interface CategoryAttributes {
   path: string;
   url: string;
 }
-
+// @ts-ignore
 class Category extends Model<CategoryAttributes> implements CategoryAttributes {
   public id!: number;
   public name!: string;

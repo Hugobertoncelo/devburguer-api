@@ -26,18 +26,6 @@ services:
       - "3000:3000"
     networks:
       - devburguer1-network
-  # nginx:
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: ./nginx
-  #   restart: always
-  #   depends_on:
-  #     - gostack-server
-  #   container_name: "gostack-nginx"
-  #   ports:
-  #     - "80:80"
-  #   networks:
-  #     - gostack-network
 
 volumes:
   devburguer1-postgres-data:

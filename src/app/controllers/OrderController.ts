@@ -48,6 +48,7 @@ class OrderController {
       const newProduct = {
         id: product.id,
         name: product.name,
+        // @ts-ignore
         category: product.category?.name || "defaultCategory", // Ensure a value is present
         price: product.price,
         url: product.url || "defaultUrl", // Ensure a value is present

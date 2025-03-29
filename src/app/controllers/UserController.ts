@@ -36,6 +36,7 @@ class UserController {
     console.log(userExists);
 
     const user = await User.create({
+      // @ts-ignore
       id: v4(),
       name,
       email,

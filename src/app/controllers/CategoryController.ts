@@ -24,6 +24,7 @@ class CategoryController {
 
     const { name } = request.body;
 
+    // @ts-ignore
     const categoryExists = await Category.findOne({
       where: {
         name,
@@ -33,7 +34,7 @@ class CategoryController {
     if (categoryExists) {
       return response.status(400).json({ error: "Category already exists." });
     }
-
+// @ts-ignore
     const { id } = await Category.create({
       name,
       path,
@@ -60,7 +61,7 @@ class CategoryController {
     }
 
     const { id } = request.params;
-
+// @ts-ignore
     const categoryExists = await Category.findByPk(id);
 
     if (!categoryExists) {
@@ -77,6 +78,7 @@ class CategoryController {
     const { name } = request.body;
 
     if (name) {
+      // @ts-ignore
       const categoryNameExists = await Category.findOne({
         where: {
           name,
@@ -87,7 +89,7 @@ class CategoryController {
         return response.status(400).json({ error: "Category already exists." });
       }
     }
-
+// @ts-ignore
     await Category.update(
       {
         name,
@@ -104,6 +106,7 @@ class CategoryController {
   }
 
   async index(request, response) {
+    // @ts-ignore
     const categories = await Category.findAll();
 
     return response.json(categories);

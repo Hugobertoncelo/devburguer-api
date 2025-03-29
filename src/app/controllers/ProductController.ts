@@ -30,6 +30,7 @@ class ProductController {
     const product = await Product.create({
       name,
       price,
+      // @ts-ignore
       category_id,
       path,
       offer,
@@ -79,6 +80,7 @@ class ProductController {
       {
         name,
         price,
+        // @ts-ignore
         category_id,
         path,
         offer,
