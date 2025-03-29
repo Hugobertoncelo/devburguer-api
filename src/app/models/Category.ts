@@ -1,24 +1,42 @@
-import Sequelize, { Model } from "sequelize";
+import { Sequelize, Model, DataTypes } from 'sequelize';
 
-class Category extends Model {
-  static init(sequelize: Sequelize.Sequelize): void {
+interface CategoryAttributes {
+  id: number;
+  name: string;
+  path: string;
+  url: string;
+}
+
+class Category extends Model<CategoryAttributes> implements CategoryAttributes {
+  public id!: number;
+  public name!: string;
+  public path!: string;
+  public url!: string;
+
+  static init(sequelize: Sequelize): typeof Category {
     super.init(
       {
-        name: Sequelize.STRING,
-        path: Sequelize.STRING,
+        name: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
+        path: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
         url: {
-          type: Sequelize.VIRTUAL,
-          get() {
+          type: DataTypes.VIRTUAL,
+          get(this: Category) {
             return `http://localhost:3000/category-file/${this.path}`;
           },
         },
       },
       {
         sequelize,
+        tableName: 'categories', // optional: specify table name
       }
     );
-
-    return this;
+    return Category;
   }
 }
 
